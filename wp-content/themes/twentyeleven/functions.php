@@ -70,30 +70,130 @@ if ( ! function_exists( 'twentyeleven_setup' ) ):
  *
  * @since Twenty Eleven 1.0
  */
-$box = slt_cf_register_box( array(  
-    'type' => 'post',  
-    'title' => 'Featured article',  
-    'id' => 'featured-box',  
-    'context' => 'normal',  
-    'fields' => array(  
-        array(  
-            'name' => 'featured',  
-            'label' => 'Featured article',  
-            'hide_label' => false,  
-            'type' => 'select',  
-            'options_type' => 'posts',  
-            'options_query' => array(  
-                'numberposts' => -1,  
-                'post_type' => 'article',  
-                'meta_key' => slt_cf_field_key('article-issue'),  
-                'meta_value' => '[OBJECT_ID]'  
-            ),  
-            
-            'capabilities' => array( 'edit_pages' )  
-        )  
-    )  
-));  
-add_action('init', $box);
+
+add_action('admin_footer', 'custom_admin_js');
+add_action( 'init', 'create_post_type' );
+add_action('add_meta_boxes', 'add_image_selector', 1);
+
+// Build the box that everything will live in
+
+function add_image_selector() {
+    add_meta_box( 
+        'slideshow_image_selector',
+        'Images',
+        'show_slideshow_selector',
+        'image_gallery',
+        'normal',
+        'high'
+    );
+}
+ function custom_admin_js() {
+    $url = get_option('siteurl');
+    $url = get_bloginfo('template_directory') . '/js/uploader-init.js';
+    echo '"<script type="text/javascript" src="'. $url . '"></script>"';
+}
+// Create the fields
+
+$custom_meta_fields = array(  
+    array(  
+        'label'=> 'Image',  
+        'desc'  => 'Select an image you would like to add to the slideshow.',  
+        'id'    => 'slideshow_image',  
+        'type'  => 'image'  
+    ),
+    array(  
+        'label'=> 'Image Caption',  
+        'desc'  => 'A caption for the selected image.',  
+        'id'    => 'slideshow_image_caption',  
+        'type'  => 'textarea'  
+    )
+);
+    // The Callback  
+function show_slideshow_selector() {  
+    global $custom_meta_fields, $post;  
+    // Use nonce for verification  
+    echo '<input type="hidden" name="custom_meta_box_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';  
+      
+    // Begin the field table and loop  
+    echo '<table class="form-table">';  
+    foreach ($custom_meta_fields as $field) {  
+        // get value of this field if it exists for this post  
+        $meta = get_post_meta($post->ID, $field['id'], true);  
+        // begin a table row with  
+        echo '<tr> 
+                <th><label for="'.$field['id'].'">'.$field['label'].'</label></th> 
+                <td>';  
+                switch($field['type']) {  
+                    // textarea  
+                    case 'textarea':  
+                        echo '<textarea name="'.$field['id'].'" id="'.$field['id'].'" cols="60" rows="4">'.$meta.'</textarea> 
+                            <br /><span class="description">'.$field['desc'].'</span>';  
+                    break;  
+                    // image  
+                    case 'image':  
+                        $image = get_template_directory_uri().'/images/image.png';    
+                        echo '<span class="default_image" style="display:none">'.$image.'</span>';  
+                        if ($meta) { $image = wp_get_attachment_image_src($meta, 'medium'); $image = $image[0]; }                 
+                        echo    '<input name="'.$field['id'].'" type="hidden" class="upload_image" value="'.$meta.'" /> 
+                                    <img src="'.$image.'" class="preview_image" alt="" /><br /> 
+                                        <input class="upload_image_button button" type="button" value="Choose Image" /> 
+                                        <small> <a href="#" class="clear_image_button">Remove Image</a></small> 
+                                        <br clear="all" /><span class="description">'.$field['desc'].'';  
+                    break; 
+                } //end switch  
+        echo '</td></tr>';  
+    } // end foreach  
+    echo '</table>'; // end table  
+}  
+
+
+
+
+
+// $box = slt_cf_register_box( array(  
+//     'type' => 'post',  
+//     'title' => 'Images',  
+//     'id' => 'images-box',  
+//     'context' => 'above-content',  
+//     'fields' => array(  
+//         array(  
+//             'name' => 'images',  
+//             'label' => 'Image',  
+//             'hide_label' => false,  
+//             'type' => 'file',
+//             'file_button_label' => 'Select images to place in slideshow',           
+//             'capabilities' => array( 'edit_pages' )  
+//         ),
+//         array(
+//         	'name' => 'imageSlideshowDescription',
+//         	'label' => 'Description',
+//         	'type' => 'text',
+//         	'capabilities' => array('edit_pages')
+//         )  
+//     )  
+// ));  
+
+function create_post_type() {
+	register_post_type( 'image_gallery',
+		array(
+			'labels' => array(
+				'name' => __( 'Slideshow' ),
+				'singular_name' => __( 'Custom Slideshow' ),
+				'add_new' => __('Add New Slideshow'),
+			),
+		'public' => true,
+		'has_archive' => true,
+		'menu_position' => 5,
+		'supports' => array(
+			'title',
+			'custom-fields', 
+			'editor', 
+			'post-formats' => 'Gallery'
+			)
+		)
+	);
+}
+
 function twentyeleven_setup() {
 
 	/* Make Twenty Eleven available for translation.
@@ -634,3 +734,5 @@ function twentyeleven_body_classes( $classes ) {
 }
 add_filter( 'body_class', 'twentyeleven_body_classes' );
 
+
+?>
