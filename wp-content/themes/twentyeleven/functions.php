@@ -96,17 +96,22 @@ function add_image_selector() {
 
 $custom_meta_fields = array(  
     array(  
-        'label'=> 'Image',  
-        'desc'  => 'Select an image you would like to add to the slideshow.',  
-        'id'    => 'slideshow_image',  
-        'type'  => 'image'  
+        'name'   => 'Image',  
+        'desc'    => 'Select an image you would like to add to the slideshow.',  
+        'id'        => 'slideshow_image',  
+        'type'    => 'image'  
     ),
     array(  
-        'label'=> 'Image Caption',  
-        'desc'  => 'A caption for the selected image.',  
-        'id'    => 'slideshow_image_caption',  
-        'type'  => 'textarea'  
-    )
+        'name'   => 'Image Caption',  
+        'desc'    => 'A caption for the selected image.',  
+        'id'        => 'slideshow_image_caption',  
+        'type'    => 'textarea'  
+    ),
+    array(  
+        'name' => 'Repeatable',  
+        'id'       => 'slideshow_repeatable',  
+        'type'    => 'repeatable'  
+    ) 
 );
     // The Callback  
 function show_slideshow_selector() {  
@@ -114,81 +119,70 @@ function show_slideshow_selector() {
     // Use nonce for verification  
     echo '<input type="hidden" name="custom_meta_box_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';  
       
-    // Begin the field table and loop  
-    echo '<table class="form-table">';  
+    // Begin the field list and loop  
+     $i = 0; 
+
+    echo '<ul class="image-details"><li><span class="sort hndle">|||</span>';  
     foreach ($custom_meta_fields as $field) {  
         // get value of this field if it exists for this post  
         $meta = get_post_meta($post->ID, $field['id'], true);  
-        // begin a table row with  
-        echo '<tr> 
-                <th><label for="'.$field['id'].'">'.$field['label'].'</label></th> 
-                <td>';  
+        // begin a list item with  
+        echo ' 
+                <div class="'.$field['id'].'_labelContainer">
+                    <label class="'.$field['id'].'_label" for="'.$field['id'].'">'.$field['name'].'</label>
+                </div>';    
+
                 switch($field['type']) {  
                     // textarea  
                     case 'textarea':  
-                        echo '<textarea name="'.$field['id'].'" id="'.$field['id'].'" cols="60" rows="4">'.$meta.'</textarea> 
-                            <br /><span class="description">'.$field['desc'].'</span>';  
+                        echo '<div class="'.$field['id'].'_content">
+                                    <textarea name="'.$field['id'].'['.$i.']" id="'.$field['id'].'" cols="60" rows="4">'.$meta.'</textarea> 
+                            <br /><span class="description">'.$field['desc'].'</span>
+                                </div>';  
                     break;  
                     // image  
                     case 'image':  
                         $image = get_template_directory_uri().'/images/image.png';    
                         echo '<span class="default_image" style="display:none">'.$image.'</span>';  
                         if ($meta) { $image = wp_get_attachment_image_src($meta, 'medium'); $image = $image[0]; }                 
-                        echo    '<input name="'.$field['id'].'" type="hidden" class="upload_image" value="'.$meta.'" /> 
+                        echo    '<div class="'.$field['id'].'_content"><input name="'.$field['id'].'['.$i.']" type="hidden" class="upload_image" value="'.$meta.'" /> 
                                     <img src="'.$image.'" class="preview_image" alt="" /><br /> 
                                         <input class="upload_image_button button" type="button" value="Choose Image" /> 
                                         <small> <a href="#" class="clear_image_button">Remove Image</a></small> 
-                                        <br clear="all" /><span class="description">'.$field['desc'].'';  
+                                        <br clear="all" /><span class="description">'.$field['desc'].'</span></div>';  
+                    break; 
+                    // add button
+                    case 'repeatable':  
+                        $image = get_template_directory_uri().'/images/image.png';    
+                        echo '<span class="default_image" style="display:none">'.$image.'</span>';  
+
+                
+                        
+                        echo '<div class="clear"></div><a class="repeatable-remove button" href="#">Remove</a>';  
+                                
                     break; 
                 } //end switch  
-        echo '</td></tr>';  
+                 $i++;   
     } // end foreach  
-    echo '</table>'; // end table  
+    echo '</li></ul><a class="repeatable-add button" href="#">Add another image</a>'; // end list  
 }  
-
-
-
-
-
-// $box = slt_cf_register_box( array(  
-//     'type' => 'post',  
-//     'title' => 'Images',  
-//     'id' => 'images-box',  
-//     'context' => 'above-content',  
-//     'fields' => array(  
-//         array(  
-//             'name' => 'images',  
-//             'label' => 'Image',  
-//             'hide_label' => false,  
-//             'type' => 'file',
-//             'file_button_label' => 'Select images to place in slideshow',           
-//             'capabilities' => array( 'edit_pages' )  
-//         ),
-//         array(
-//         	'name' => 'imageSlideshowDescription',
-//         	'label' => 'Description',
-//         	'type' => 'text',
-//         	'capabilities' => array('edit_pages')
-//         )  
-//     )  
-// ));  
 
 function create_post_type() {
 	register_post_type( 'image_gallery',
 		array(
-			'labels' => array(
-				'name' => __( 'Slideshow' ),
+			'labels'                           => array(
+				'name'               => __( 'Slideshow' ),
 				'singular_name' => __( 'Custom Slideshow' ),
-				'add_new' => __('Add New Slideshow'),
+				'add_new'          => __('Add New Slideshow'),
+                                                'add_new_item'  => __('Add New Slidehow')
 			),
-		'public' => true,
-		'has_archive' => true,
-		'menu_position' => 5,
-		'supports' => array(
+		'public'                                       => true,
+		'has_archive'                               => true,
+		'menu_position'                           => 5,
+		'supports'                                    => array(
 			'title',
-			'custom-fields', 
-			'editor', 
-			'post-formats' => 'Gallery'
+			'image_gallery', 
+			'post-formats'                   => 'Gallery'
 			)
 		)
 	);
