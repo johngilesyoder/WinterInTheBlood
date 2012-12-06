@@ -1,0 +1,104 @@
+// sidebar.less
+// CSS for the global sidebar.
+// -----------------------------------------------------------------
+
+
+
+.sidebar {
+	list-style-type: none;
+	padding-top: 10px;
+	width: 310px;
+	margin-right: 30px;
+	h3 {
+		font-style: italic;
+		font-size: 21px;
+		font-weight: 500;
+		padding-bottom: 10px;
+		margin-bottom: 25px;
+		border-bottom: 1px solid #ccc;
+	}
+	li {
+		margin-bottom: 30px;
+	}
+}
+
+.fb-like-box {
+	background: @white;
+	margin-bottom: 20px;
+}
+.tix {
+	.border-radius(5px);
+	border: 1px solid #ccc;
+	.box-shadow(0 1px 5px rgba(163,163,163,0.23));
+	#gradient > .vertical(#fefbf0, #fdefc9);
+	font-family: @sansFontFamily;
+	font-size: 12px;
+	font-weight: 700;
+	text-transform: uppercase;
+	padding: 20px;
+	.clearfix();
+	color: #404040;
+	.poster {
+		float: left;
+	}
+	form {
+		margin-bottom: 0;
+		width: 150px;
+		label {
+			font-size: 12px;
+			font-weight: 700;
+		}
+		input {
+			width: 138px;
+			margin-bottom: 20px;
+		}
+		span {
+			margin-bottom: 5px;
+		}
+		.fandango {
+			width: 30px;
+			margin-bottom: 0;
+		}
+		.movietix {
+			width: 55px;
+			margin-bottom: 0;
+			margin-left: 20px;
+		}
+	}
+}
+
+// Reviews
+#reviews {
+	.review > div {
+		width: 310px;
+		text-align: center;
+		font-family: Vitesse;
+		font-style: italic;
+		font-weight: 500;
+		color: @red;
+		font-size: 21px;
+		.review-stars {
+			background: url('assets/img/sidebar/review-stars.png');
+			height: 24px;
+			width: 115px;
+			display: block;
+			margin: 0 auto 20px;
+			&.three-stars {
+				width: 86px;
+			}
+		}
+		.credit {
+			font-family: @sansFontFamily;
+			margin-top: 15px;
+			text-transform: uppercase;
+			color: @grayDark;
+			font-style: normal;
+			font-size: 12px;
+			.author {
+				font-weight: 900;
+				display: inline-block;
+				margin-right: 5px;
+			}
+		}
+	}
+}

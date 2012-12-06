@@ -24,8 +24,8 @@
 @blue:                  #049cdb;
 @blueDark:              #0064cd;
 @green:                 #46a546;
-@red:                   #9d261d;
-@yellow:                #ffc40d;
+@red:                   #723745;
+@yellow:                #c09538;
 @orange:                #f89406;
 @pink:                  #c3325f;
 @purple:                #7a43b6;
@@ -39,20 +39,20 @@
 
 // Links
 // -------------------------
-@linkColor:             #08c;
+@linkColor:             @red;
 @linkColorHover:        darken(@linkColor, 15%);
 
 
 // Typography
 // -------------------------
-@sansFontFamily:        "Helvetica Neue", Helvetica, Arial, sans-serif;
-@serifFontFamily:       Georgia, "Times New Roman", Times, serif;
+@sansFontFamily:        "Verlag", Helvetica, Arial, sans-serif;
+@serifFontFamily:       "Sentinel", "Times New Roman", Times, serif;
 @monoFontFamily:        Menlo, Monaco, Consolas, "Courier New", monospace;
 
-@baseFontSize:          13px;
-@baseFontFamily:        @sansFontFamily;
-@baseLineHeight:        18px;
-@altFontFamily:         @serifFontFamily;
+@baseFontSize:          16px;
+@baseFontFamily:        @serifFontFamily;
+@baseLineHeight:        21px;
+@altFontFamily:         @sansFontFamily;
 
 @headingsFontFamily:    inherit; // empty to use BS default, @baseFontFamily
 @headingsFontWeight:    bold;    // instead of browser default, bold
@@ -196,8 +196,8 @@
 // Default 940px grid
 // -------------------------
 @gridColumns:             12;
-@gridColumnWidth:         60px;
-@gridGutterWidth:         20px;
+@gridColumnWidth:         70px;
+@gridGutterWidth:         30px;
 @gridRowWidth:            (@gridColumns * @gridColumnWidth) + (@gridGutterWidth * (@gridColumns - 1));
 
 // Fluid grid

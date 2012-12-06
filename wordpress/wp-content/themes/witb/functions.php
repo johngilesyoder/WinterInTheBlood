@@ -497,3 +497,33 @@ function twentyten_posted_in() {
 	);
 }
 endif;
+
+function sbt_auto_excerpt_more( $more ) {
+return 'aaa';
+}
+add_filter( 'excerpt_more', 'sbt_auto_excerpt_more', 20 );
+
+function sbt_custom_excerpt_more( $output ) {return preg_replace('/<a[^>]+>Continue reading.*?<\/a>/i','',$output);
+}
+add_filter( 'get_the_excerpt', 'sbt_custom_excerpt_more', 20 );
+
+
+// Automatic Featured Category for Video custom post type
+function add_featured_category_to_video($post_ID) {
+	global $wpdb;
+	if(!has_term('','category',$post_ID)){
+		$cat = array(7);
+		wp_set_object_terms($post_ID, $cat, 'category');
+	}
+}
+add_action('publish_video', 'add_featured_category_to_video');
+
+// Automatic Featured Category for Slideshow custom post type
+function add_featured_category_to_slideshow($post_ID) {
+	global $wpdb;
+	if(!has_term('','category',$post_ID)){
+		$cat = array(7);
+		wp_set_object_terms($post_ID, $cat, 'category');
+	}
+}
+add_action('publish_slideshow', 'add_featured_category_to_slideshow');

@@ -1,0 +1,39 @@
+// footer.less
+// CSS for the global footer.
+// -----------------------------------------------------------------
+
+
+
+footer {
+	text-align: center;
+	color: @white;
+	margin-top: 40px;
+	margin-bottom: 50px;
+	color: #cfd8e5;
+	font-size: 14px;
+	.footer-nav {
+		display: inline-block;
+		margin-left: 5px;
+	}
+	ul {
+		margin-left: 0;
+		list-style-type: none;
+		li {
+			display: inline-block;
+			&:after {
+				content: "|";
+				color: #cfd8e5;
+				padding: 0 5px;
+			}
+			&:last-child:after {
+				content: "";
+			}
+			a {
+				color: @yellow;
+				&:hover {
+					color: darken(@yellow, 5%);
+				}
+			}
+		}
+	}	
+}

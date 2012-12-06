@@ -1,0 +1,33 @@
+// video.less
+// CSS for a feature video.
+// -----------------------------------------------------------------
+
+
+// Include LESS variables & mixins
+@import "../global/lib/mixins.less";
+@import "../global/lib/variables.less";
+
+.post {
+	margin-bottom: 40px;
+	//border-bottom: 1px solid #ccc;
+	.post-title {
+		font-family: "VerBlack";
+		font-weight: normal;
+		text-transform: uppercase;
+		font-size: 30px;
+	}
+	.date {
+		margin-bottom: 20px;
+	}
+	.share {
+		.border-radius(5px);
+		background-color: #ccc;
+		padding: 5px 20px;
+		margin-top: 30px;
+		.twitter-share-button {
+			margin-left: 20px;
+			position: relative;
+			top: 3px;
+		}
+	}
+}

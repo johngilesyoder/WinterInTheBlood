@@ -1,4 +1,4 @@
-//@codekit-prepend "../plugins/nav.js";
+//@codekit-prepend "../plugins/jquery.innerfade.js";
 
 // BOOTSTRAP PLUGINS
 //@codekit-append "bootstrap/bootstrap-tooltip.js";

@@ -8,38 +8,89 @@
 @import "../global/lib/variables.less";
 
 
-// NEWS 
-// ------------------------
-
-.news {
-	margin-bottom: 0 !important;
-}
-
-.news div:last-child {
-	border-bottom: 0;
-	.box-shadow(none);
-}
-
-.post {
-	h3 {
-		text-transform: uppercase;
-		font-size: 20px;
-		-webkit-font-smoothing: antialiased;
-		line-height: 24px;
-		margin-bottom: 0;
+.page-template-home-php .roll {
+	article {
+		height: 430px;
+		margin-bottom: 32px;
+		img {
+			margin-bottom: 20px;
+		}
+		.type {
+			color: #a6a6a6;
+			font-family: @sansFontFamily;
+			font-size: 12px;
+			text-transform: uppercase;
+			font-weight: 900;
+			letter-spacing: 0.1em;
+			display: inline-block;
+			margin-bottom: 15px;
+			&.video {
+				line-height: 15px;
+				height: 15px;
+				&:before {
+					content: "";
+					margin-right: 10px;
+					height: 15px;
+					width: 13px;
+					background-image: url('../../../assets/img/home/article-type.png');
+					background-repeat: no-repeat;
+					background-position: -26px 0px;
+					display: inline-block;
+					position: relative;
+					top: 2px;
+				}
+			}
+			&.slideshow {
+				line-height: 15px;
+				height: 15px;
+				&:before {
+					content: "";
+					margin-right: 10px;
+					height: 15px;
+					width: 21px;
+					background-image: url('../../../assets/img/home/article-type.png');
+					background-repeat: no-repeat;
+					background-position: 0px 0px;
+					display: inline-block;
+					position: relative;
+					top: 2px;
+				}
+			}
+			&.article {
+				line-height: 15px;
+				height: 15px;
+				&:before {
+					content: "";
+					margin-right: 10px;
+					height: 17px;
+					width: 16px;
+					background-image: url('../../../assets/img/home/article-type.png');
+					background-repeat: no-repeat;
+					background-position: 0px -20px;
+					display: inline-block;
+					position: relative;
+					top: 2px;
+				}
+			}
+		}
+		h2 {
+			font-family: @sansFontFamily;
+			text-transform: uppercase;
+			font-size: 18px;
+			font-weight: 900;
+			line-height: 20px;
+			margin-bottom: 10px;
+		}
+		.action {
+			text-transform: uppercase;
+			font-size: 14px;
+			font-family: @sansFontFamily;
+			font-weight: bold;
+			&:after {
+				content: "»";
+				font-size: 24px;
+				margin-left: 10px;
+			}
+		}
 	}
-	img {
-		margin-bottom: 20px;
-		.box-shadow(0 1px 5px rgba(0,0,0,0.15);
-	}
-	border-bottom: 1px solid rgba(0,0,0,0.3);
-	.box-shadow(0 1px 0 rgba(255,255,255,0.075);
-	padding-bottom: 20px;
-	margin-bottom: 30px;
-	.meta {
-		font-family: 'Helvetica Neue';
-		font-size: 12px;
-		margin-bottom: 15px;
-	}
-	.clearfix();
 }

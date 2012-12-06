@@ -6,6 +6,9 @@
  * @subpackage Starkers
  * @since Starkers 3.0
  */
+/*
+Template Name: Home
+*/
 
 get_header(); ?>
 

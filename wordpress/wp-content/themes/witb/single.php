@@ -9,36 +9,42 @@
 
 get_header(); ?>
 
-<?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
+<!-- Page Specific Styles -->
+<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo('template_directory'); ?>/assets/css/areas/blogroll.css" />
+	
+<div class="span8">
+	<div class="row">
+		<?php 
+		if ( in_category( 'featured' )) { ?>
+			<h2 class="page-title"><img src="<?php bloginfo('template_directory'); ?>/assets/img/titles/title-home.png" alt="Music"></h2>
+		<?php } else { ?>
+			<h2 class="page-title"><img src="<?php bloginfo('template_directory'); ?>/assets/img/titles/title-blog.png" alt="Music"></h2>
+		<?php } ?>
 
-					<?php previous_post_link( '%link', '' . _x( '&larr;', 'Previous post link', 'twentyten' ) . ' %title' ); ?>
-					<?php next_post_link( '%link', '%title ' . _x( '&rarr;', 'Next post link', 'twentyten' ) . '' ); ?>
+		<div class="span8">
+			<?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
+			<div class="post">
+				<h1 class="post-title"><?php the_title(); ?></h1>
+				<p class="date">Posted on <?php the_date(); ?></p>
 
-					<h1><?php the_title(); ?></h1>
+					<?php the_content(); ?>
+					<?php wp_link_pages( array( 'before' => '' . __( 'Pages:', 'twentyten' ), 'after' => '' ) ); ?>
 
-						<?php twentyten_posted_on(); ?>
+				<div class="share">
+					<div class="fb-like" data-href="<?php the_permalink() ?>" data-send="false" data-layout="button_count" data-width="80" data-show-faces="false" data-font="arial"></div>
+					<a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php the_permalink() ?>" data-via="WinterBloodFilm">Tweet</a>
+				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+				</div>
+			</div>
 
-						<?php the_content(); ?>
-						<?php wp_link_pages( array( 'before' => '' . __( 'Pages:', 'twentyten' ), 'after' => '' ) ); ?>
+			<?php endwhile; // end of the loop. ?>
 
-<?php if ( get_the_author_meta( 'description' ) ) : // If a user has filled out their description, show a bio on their entries  ?>
-							<?php echo get_avatar( get_the_author_meta( 'user_email' ), apply_filters( 'twentyten_author_bio_avatar_size', 60 ) ); ?>
-							<h2><?php printf( esc_attr__( 'About %s', 'twentyten' ), get_the_author() ); ?></h2>
-							<?php the_author_meta( 'description' ); ?>
-							<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>">
-								<?php printf( __( 'View all posts by %s &rarr;', 'twentyten' ), get_the_author() ); ?>
-							</a>
-<?php endif; ?>
+		</div>
+	</div>
+</div>
 
-						<?php twentyten_posted_in(); ?>
-						<?php edit_post_link( __( 'Edit', 'twentyten' ), '', '' ); ?>
-
-				<?php previous_post_link( '%link', '' . _x( '&larr;', 'Previous post link', 'twentyten' ) . ' %title' ); ?>
-				<?php next_post_link( '%link', '%title ' . _x( '&rarr;', 'Next post link', 'twentyten' ) . '' ); ?>
-
-				<?php comments_template( '', true ); ?>
-
-<?php endwhile; // end of the loop. ?>
-
-<?php get_sidebar(); ?>
-<?php get_footer(); ?>
+		<?php get_sidebar(); ?>
+</div><!-- .main -->
+<footer class="container">	
+	<?php get_footer(); ?>
+</footer>

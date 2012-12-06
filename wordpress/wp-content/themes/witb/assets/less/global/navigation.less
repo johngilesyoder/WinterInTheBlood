@@ -1,0 +1,148 @@
+// navigation.less
+// CSS for the primary navigation.
+// -----------------------------------------------------------------
+
+
+.primary-nav {
+	margin-bottom: 25px;
+	#gradient > .vertical(@white, #f2f2f2);
+	.border-radius(10px 10px 0 0);
+	.box-shadow(0 1px 5px rgba(0,0,0,0.2));
+	border-bottom: 1px solid @white;
+	ul {
+		.clearfix();
+		margin: 0;
+		li {
+			list-style: none;
+			float: left;
+			position: relative;
+			border-right: 1px solid #dbdbdb;
+			border-left: 1px solid @white;
+			&:hover {
+				#gradient > .vertical(#f7f7f7, #ebebeb);
+			}
+			&:first-child {
+				.border-radius(10px 0 0 0);
+				border-left: 0;
+				a {
+					.border-radius(10px 0 0 0);
+				}
+			}
+			&:last-child {
+				.border-radius(0 10px 0 0);
+				border-right: 0;
+				a {
+					.border-radius(0 10px 0 0);
+				}
+			}
+			a {
+				margin: 15px 17px;
+				display: block;
+				background-image: url('assets/img/nav/nav-icons.png');
+				height: 20px;
+				text-indent: -9999px;
+			}
+			&.current-menu-item:after {
+				content: url('assets/img/nav/nav-active-indicator.png');
+				position: absolute;
+				bottom: -20px;	
+				left: 50%;
+				margin-left: -13px;
+			}
+		}
+	}
+}
+
+// Sprites
+.primary-nav ul li {
+	&.menu-item-204 a {
+		width: 112px;
+		background-position: -152px -25px;
+	}
+	&.menu-item-204.current-menu-item a {
+		background-position: -152px 0px;
+	}
+	&.menu-item-204:hover a {
+		background-position: -152px 0px;
+	}
+	&.menu-item-205 a {
+		width: 67px;
+		background-position: -152px -125px;
+	}
+	&.menu-item-205.current-menu-item a {
+		background-position: -152px -100px;
+	}
+	&.menu-item-205:hover a {
+		background-position: -152px -100px;
+	}
+	&.menu-item-206 a {
+		width: 147px;
+		background-position: 0px -25px;
+	}
+	&.menu-item-206.current-menu-item a {
+		background-position: 0px 0px;
+	}
+	&.menu-item-206:hover a {
+		background-position: 0px 0px;
+	}
+	&.menu-item-38 a {
+		width: 57px;
+		background-position: -200px -150px;
+	}
+	&.menu-item-38.current-menu-item a {
+		background-position: -138px -150px;
+	}
+	&.menu-item-38:hover a {
+		background-position: -138px -150px;
+	}
+	&.menu-item-140 a {
+		width: 64px;
+		background-position: -69px -150px;
+	}
+	&.menu-item-140.current-menu-item a {
+		background-position: 0px -150px;
+	}
+	&.menu-item-140:hover a {
+		background-position: 0px -150px;
+	}
+	&.menu-item-103 a {
+		width: 92px;
+		background-position: -152px -75px;
+	}
+	&.menu-item-103.current-menu-item a {
+		background-position: -152px -50px;
+	}
+	&.menu-item-103:hover a {
+		background-position: -152px -50px;
+	}
+	&.menu-item-107 a {
+		width: 114px;
+		background-position: 0px -125px;
+	}
+	&.menu-item-107.current-menu-item a {
+		background-position: 0px -100px;
+	}
+	&.menu-item-107:hover a {
+		background-position: 0px -100px;
+	}
+	&.menu-item-143 a {
+		width: 131px;
+		background-position: 0px -75px;
+	}
+	&.menu-item-143.current-menu-item a {
+		background-position: 0px -50px;
+	}
+	&.menu-item-143:hover a {
+		background-position: 0px -50px;
+	}
+	&.menu-item-174 a {
+		width: 54px;
+		background-position: -59px -175px;
+	}
+	&.menu-item-174.current-menu-item a {
+		background-position: 0px -175px;
+	}
+	&.menu-item-174:hover a {
+		background-position: 0px -175px;
+	}
+}
